@@ -108,6 +108,7 @@ public class MainActivity extends Activity {
         resetIfNeeded();
         scheduleDailyCheck(this);
         root = new FrameLayout(this);
+        root.setBackgroundColor(BG);
         setContentView(root);
         render();
     }
@@ -147,7 +148,7 @@ public class MainActivity extends Activity {
         content = new LinearLayout(this);
         content.setOrientation(LinearLayout.VERTICAL);
         content.setPadding(dp(12), dp(12), dp(12), dp(94));
-        content.setLayoutTransition(new LayoutTransition());
+        // Full-screen LayoutTransition is disabled: it caused a visible screen fade after clicks.
         scrollView.addView(content, new ScrollView.LayoutParams(-1, -2));
         root.addView(scrollView, new FrameLayout.LayoutParams(-1, -1));
 
@@ -300,7 +301,7 @@ public class MainActivity extends Activity {
 
         LinearLayout rows = new LinearLayout(this);
         rows.setOrientation(LinearLayout.VERTICAL);
-        rows.setLayoutTransition(new LayoutTransition());
+        // Row container transition is disabled to avoid whole-card flicker during full rerender.
         rows.setOnDragListener((v, event) -> handleDropOnMeal(event, meal.id, null));
         if (meal.rows.isEmpty()) {
             TextView empty = small("В этом приёме пищи пока нет продуктов.");
@@ -1275,7 +1276,7 @@ public class MainActivity extends Activity {
         l.setOrientation(LinearLayout.VERTICAL);
         l.setBackground(round(CARD, dp(20), LINE));
         l.setPadding(dp(12), dp(12), dp(12), dp(12));
-        l.setLayoutTransition(new LayoutTransition());
+        // Card transition is disabled to avoid whole-card flicker during full rerender.
         return l;
     }
 
